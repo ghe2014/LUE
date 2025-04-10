@@ -1,0 +1,312 @@
+\documentclass{article}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[braket,qm]{qcircuit}
+\usepackage{algorithm}
+\DeclareMathOperator{\Tr}{Tr}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\usepackage[noend]{algpseudocode}
+\usepackage{hyperref}
+\title{On necessary and sufficient condition on local unitary equivalence
+  between two qudits density matrices}
+\author{Guangliang He
+  \thanks{\href{mailto:guangliang.he@gmail.com}
+    {Email: guangliang.he@gmail.com}}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\cite{Li_2014, Martins_2015}
+
+\section{Setup}
+Let $\rho^{(a)}$ where $a = \{1, 2\}$  be two density matrices of $K$ qudits
+in the Hilbert space $H = H_1\otimes\cdots\otimes H_K$, with dimensions
+$N_k$ for subspace $H_k$. The two density matrices $\rho^{(1)}$ and $\rho^{(2)}$
+are said to be locally unitary equivalent (LUE) means that there exist a set
+of unitary matrices $U_k\in SU(N_k)$ such that
+$U = U_1\otimes\cdots\otimes U_K$ and
+\begin{equation}
+  \label{eq:rho_lue}
+  \rho^{(2)} = U\rho^{(1)}U^\dagger.
+\end{equation}
+
+Consider the single qudit reduced density matrices
+\begin{equation}
+  \rho^{(a)}_k = \Tr_{|k}\rho^{(a)},
+\end{equation}
+here the notation $\Tr_{|k}$ means take partial trace of everything else
+except in $H_k$.  Let $D_k^{(a)}$ and $V_k^{(a)}$ be the eigenvalue and
+eigenvectors of $\rho_k^{(a)}$ such that
+\begin{equation}
+  \rho^{(a)}_k = V^{(a)}_kD^{(a)}_kV^{(a)\dagger}_k.
+\end{equation}
+Define $V^{(a)}$ as
+\begin{equation}
+  V^{(a)} = V^{(a)}_1\otimes\cdots\otimes V^{(a)}_K,
+\end{equation}
+and the reference density matrices as
+\begin{equation}
+  \label{eq:rho_ref}
+  \rho^{(r, a)} = V^{(a)\dagger}\rho^{(a)}V^{(a)}.
+\end{equation}
+Here we use the superscript $r$ to differentiate the reference density matrices
+from the original density matrices.
+
+Let $\{T^{(N_k)}_{i_k}\mid i = 1,\ldots N_k^2-1\}$ be the set of generators
+of $SU(N_k)$, and $T^{(N_k)}_0 = I_N/\sqrt{2N_k}$.  We have
+\begin{eqnarray}
+  \label{eq:trace_t}
+  \Tr T^{(N_k)}_i & = & \delta_{i0}\sqrt{\frac{N_k}2} \\
+  \label{eq:trace_t_t}
+  \Tr T^{(N_k)}_iT^{(N_k)}_j & = &\frac{\delta_{ij}}2.
+\end{eqnarray}
+The reference density matrices $\rho^{(r,a)}$ can be projected on to the basis
+$\{T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}\mid i_k\in \{0, 1, \ldots, N_k^2-1\}, k \in \{1,\ldots,K\}\}$ as
+\begin{equation}
+  \label{eq:rho_proj}
+  \rho^{(r,a)} = \sum_{i_1 \ldots i_K}p^{(a)}_{i_1\ldots i_K}T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K},
+\end{equation}
+where
+\begin{equation}
+  p^{(a)}_{i_1\cdots i_K} = 2^K\Tr\left(\rho^{(r,a)}T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}\right).
+\end{equation}
+When there is no confusion, we often use the following short hand for $p^{(a)}_{.}$
+\begin{eqnarray}
+  \label{eq:p_k}
+  p^{(a)}_{k,i_k} & = & p^{(a)}_{0\cdots0i_k0\cdots0} \\
+  \label{eq:p_k1_k2}
+  p^{(a)}_{k_1k_2,i_{k_1}i_{k_2}} & = & p^{(a)}_{0\cdots0i_{k_1}0\cdots0i_{k_2}0\cdots0} \\
+  & \cdots &  
+\end{eqnarray}
+
+Taking the trace of Eq.~(\ref{eq:rho_proj}) gives us
+\begin{equation}
+  p_{0\cdots0} = \prod_{k=1}^K\sqrt{\frac{2}{N_k}}.
+\end{equation}
+
+Taking the partial trace for everything except the $k$-th subspace
+of Eq.~(\ref{eq:rho_proj}),
+\begin{equation}
+  \rho^{(r,a)}_k = \Tr_{|k}\rho^{(r,a)} = \frac{I_{N_k}}{N_k}
+  + \left(\prod_{i\ne k}\sqrt{\frac{N_i}2}\right)\sum_{i_k=1}^{N_k^2-1}p_{k,i_k}T^{(N_k)}_{i_k}
+\end{equation}
+
+\section{Main results}
+The proof of Propersition~1 in Martins\cite{Martins_2015} can be extended
+from the case of qubits to the case of qudits with minimal modification.
+\begin{proposition}
+  \label{prop:one}
+  Let $\rho^{(1)}$ and $\rho^{(2)}$ be two states of $n$-qudits in the
+  Hilbert space $H = H_1\otimes\cdots\otimes H_K$ with $N_k$ being the
+  dimension of $H_k$.  Further let $D^{(a)}_k$ be the diagonal matrices
+  of eigenvalues of single qudit reduced density matrix $\rho^{(a)}_k$.
+  If there is at least one $k$, such that $D^{(1)}_k-D^{(2)}_k\ne 0$,
+  then $\rho^{(1)}$ and $\rho^{(2)}$ are not LU equivalent.
+\end{proposition}
+\begin{proof}
+  If $\rho^{(1)}$ and $\rho^{(2)}$ are LU equivalent, then
+  $\forall i = 1,\ldots,K$, there exists a local unitary operator $U_k$
+  such that $\rho^{(2)}_k = U_k\rho^{(1)}_kU_k^\dagger$, which implies
+  $D^{(1)}_k = D^{(2)}_k$.  Therefore, if $D^{(1)}_k-D^{(2)}_k\ne 0$ for any
+  $k$, then the states $\rho^{(1)}$ and $\rho^{(2)}$ are not LU equivalent.
+\end{proof}
+
+\begin{theorem}
+  Let $\rho^{(1)}$ and $\rho^{(2)}$ be the density matrices of two $K$-qudit
+  states.  The two states are said to be local unitary equivalent
+  if and only if there exists $K$ real vectors
+  $\theta_k\in \mathbb R^{N_k^2-1}$, such that
+  \begin{enumerate}[label=(\roman*)]
+  \item for all $k\in\{1,\ldots,K\}$,
+    \begin{equation}
+      \label{eq:commute_d}
+      \left[\sum_{i=1}^{N_k^2-1}\theta_{k,i}T^{(N_k)}_i, D_k\right] = 0,
+    \end{equation}
+    where $\{T^{(N_k)}_i\mid i = 1,\ldots,N_k^2-1\}$ are the generators of
+    $SU(N_k)$ and $D_k = D^{(1)}_k = D^{(2)}_k$. And
+  \item the projections of the reference form of the density matrices are
+    related by the matrices
+    $R^{(k)} = \exp\left(i\sum_{j=1}^{N_k^2-1}\theta_{k,j}F^{(N_k)}_j\right)$
+    as
+    \begin{equation}
+      \label{eq:p2_r_p1}
+      p^{(2)}_{j_1\cdots j_K} =
+      \sum_{j_1=1}^{N_1^2-1}\cdots\sum_{j_K=1}^{N_K^2-1}R^{(1)}_{i_1j_1}
+      \cdots R^{(K)}_{i_Kj_K}p^{(1)}_{j_1\cdots j_K}.
+    \end{equation}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Necessary condition. If $\rho^{(1)}$ and $\rho^{(2)}$ are local unitary
+  equivalent, then from Eq.~(\ref{eq:rho_lue}) and Eq.~(\ref{eq:rho_ref}),
+  their reference forms are related as
+  \begin{equation}
+    \label{eq:ref_lue}
+    \rho^{(r,2)} = \bar U\rho^{(r,1)}\bar U^\dagger,
+  \end{equation}
+  where $\bar U = \bar U_1\otimes\cdots\bar U_K$ and
+  $\bar U_k = V^{(2)\dagger}_kU_kV^{(1)}_k$.  And the projection of the
+  reference forms are related by
+  \begin{equation}
+    \label{eq:proj_ref}
+    \sum_{i_1\ldots i_K}p^{(2)}_{i_1\ldots i_K}
+    T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}
+    = \sum_{i_1\ldots i_K}p^{(1)}_{i_1\ldots i_K}
+    \bar U\left(T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}
+    \right)\bar U^\dagger
+  \end{equation}
+  Take partial trace over everything except the $k$-th subspace,
+  utilitize Eq.~(\ref{eq:trace_t}),
+  \begin{equation}
+    \label{eq:proj}
+    \sum_{i_k=0}^{N_k^2-1}p^{(2)}_{k,i_k}T^{(N_k)}_{i_k} =
+    \sum_{i_k=0}^{N_k^2-1}p^{(1)}_{k,i_k}\bar U_kT^{(N_k)}_{i_k}\bar U_k^\dagger,
+  \end{equation}
+  with $p^{(a)}_{k,i_k}$ defined in Eq.~(\ref{eq:p_k}).
+  But $\sum_{i_k=0}^{N_k^2-1}p^{(a)}_{k,i_k} = D^{(a)}_k$, and from
+  Proposition~\ref{prop:one}, $D^{(1)}_k = D^{(2)}_k = D_k$,
+  this means $D_k = \bar U_k D_k \bar U_k^\dagger$, or
+  $[\bar U_k, D_k] = 0$.  Since $\bar U_k\in SU(N_k)$, it can be
+  written as
+  \begin{equation}
+    \bar U_k = \exp\left(i\sum_{i=1}^{N_k^2-1}\theta_{k,i}T^{N_k}_i\right),
+  \end{equation}
+  that leads to Eq.~(\ref{eq:commute_d}).
+
+  Since $\bar U = \bar U_1\otimes\cdots\otimes \bar U_K$, we have
+  \begin{equation}
+    \bar U\left(T^{N_1}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}\right)\bar U^\dagger
+    = \left(\bar U_1T^{(N_1)}_{i_1}\bar U_1^\dagger\right)
+    \otimes\cdots\otimes
+    \left(\bar U_KT^{(N_K)}_{i_K}\bar U_K^\dagger\right).
+  \end{equation}
+  Because $T^{(N_k)}_{i_k} \in \mathfrak{su}(N_k)$ and $\bar U_k\in SU(N_k)$,
+  as we shown in Appendix~\ref{appendix:adj_rep},
+  \begin{equation}
+    \bar U_kT^{(N_k)}_{i_k}\bar U_k^\dagger = \text{Ad}_{\bar U_k}(T^{(N_k)}_{i_k})
+    = \sum_{j_k=1}^{N_k^2-1}R^{(k)}_{i_kj_k}T^{(N_k)}_{j_k}.
+  \end{equation}
+  Combining this with Eq.~(\ref{eq:proj_ref}) leads us to
+  Eq.~(\ref{eq:p2_r_p1}).
+
+
+  
+  Sufficient contition.
+  To be completed...
+\end{proof}
+
+{\Huge here}
+\section{Working Notes}
+\subsection{First approach}
+My first approach, is to take SVD on the trimmed projection tensor
+$P^{(\alpha)}_{i_1\ldots i_K}$ with $i_k$ goes from 1 to $N_k$.
+
+
+Unfornately, this approach failed.  To illustrate the problem, let's
+consider the case of two qubits.
+\begin{equation}
+  P^{(\alpha)} = \begin{bmatrix}
+    P^{(\alpha)}_{00} & P^{(\alpha)}_{0*} \\
+    P^{(\alpha)}_{*0} & \tilde P^{(\alpha)}
+  \end{bmatrix}.
+\end{equation}
+When $\tilde P^{(\alpha)}$ is not full rank, the transformation
+$\tilde P^{(b)} = L\tilde P^{(a)} R$ is not unique.  One might not
+find the right set of $(L, R)$ such that transforms $P^{(a)}_{*0}$
+and $P^{(a)}_{0*}$ correctly.
+
+\subsection{Using reference density matrix}
+
+\subsection{Using constrained SVD}
+How?
+
+\subsection{Carefully analynize rank deficient cases}
+
+\appendix
+\section{Adjoint representation}
+\label{appendix:adj_rep}
+Let $G$ be a Lie group and $\mathfrak{g}$ be its Lie algebra, the adjoint
+representation $\text{Ad}_g$ of $G$ is a map
+$\mathfrak{g}\rightarrow\mathfrak{g}$ such that $\forall g\in G$, and
+$X \in \mathfrak{g}$,
+\begin{equation}
+  \text{Ad}_g(X) = gXg^{-1}.
+\end{equation}
+Let $\{T_a\}$ be a set of generators of $G$,
+\begin{equation}
+  \text{Ad}_g(T_a) = gT_ag^{-1} = R_{g,ab}T_b,
+\end{equation}
+with the normalization
+\begin{equation}
+  \Tr T_aT_b = \frac12\delta_{ab},
+\end{equation}
+we have
+\begin{equation}
+  R_{g,ab} = 2\Tr gT_ag^{-1}T_b.
+\end{equation}
+Thus the matrix $R_g$ is the adjoint representation of $g\in G$.
+
+\section{The centralizer of $SU(N)$}
+For a group $G$, the centralizer of a subset $S\in G$ is
+\begin{equation}
+  \text{C}_G(S) = \{g\in G\mid gs = sg \text{ for all } s\in S\}
+\end{equation}
+The notation $\text{C}_G(s)$ is also used for a singleton group
+$S = \{s\}$.
+
+Let $s = e^{is_aT_a}\in SU(N)$, its centralizer is
+\begin{equation}
+  \text{C}_{SU(N)}(s) = \{g\in SU(N) \mid gs=sg \text{ for all } s\in S\}
+\end{equation}
+We can express $g$ as
+\begin{equation}
+  g = e^{ix_aT_a},
+\end{equation}
+the commuting condition $gs = sg$ is equivalent to
+\begin{equation}
+  [x_aT_a, s_bT_b ] = 0,
+\end{equation}
+or
+\begin{equation}
+  f_{abc}x_as_b = 0,
+\end{equation}
+where $f_{abc}$ is the structure constant of $SU(N)$.  Define matrix
+$M$ as
+\begin{equation}
+  M_{ab} = s_cf_{cab},
+\end{equation}
+the commuting condition becomes
+\begin{equation}
+  \label{eq:mx_eq_0}
+  Mx = 0,
+\end{equation}
+where $x$ is a column vector with element $x_a$.
+
+Consider the case $s_aT_a$ is diagonal,  then the $M$ matrix
+has the following block structure\footnote{Assuming the generators $T_a$
+are ordered in the way the $N(N-1)/2$ pairs of symmetrical and
+skew-symmetrical generators comes first, then the last $N-1$
+ones are diagonal.}
+\begin{equation}
+  M = \begin{bmatrix} \bar M & 0 \\ 0 & 0\end{bmatrix},
+\end{equation}
+where $\bar M$ is a $N(N-1)\times N(N-1)$ block diagonal matrix with
+$2\times2$ skew-symmtrical blocks.  Thus, Eq.~(\ref{eq:mx_eq_0})
+constrains $x_a = 0$ for $a$ corresponding to a non-zero row in
+$\bar M$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% bibtex
+\bibliographystyle{plain}
+\bibliography{../BIBTEX/mybib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of document
+\end{document}
