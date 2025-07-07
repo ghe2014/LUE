@@ -12,8 +12,7 @@
 \newtheorem{proposition}{Proposition}
 \usepackage[noend]{algpseudocode}
 \usepackage{hyperref}
-\title{On necessary and sufficient condition on local unitary equivalence
-  between two qudits density matrices}
+\title{On local unitary equivalence of two qudits states}
 \author{Guangliang He
   \thanks{\href{mailto:guangliang.he@gmail.com}
     {Email: guangliang.he@gmail.com}}}
@@ -23,25 +22,50 @@
 \maketitle
 
 \section{Introduction}
-\cite{Li_2014, Martins_2015}
+Entanglement, ``which is considered to be the most nonclassical
+manifestations of quantum formalism''\cite{Horodecki_2009}
+is attracting more and more attention in the science of quantum
+information and quantum computing.
+
+There is an extensive research about understanding entanglement,
+analysing the structure entanglement states, in particular,
+analysing the local unitary equivalence (LUE) of two quantum states.
+Li et al.\cite{Li_2014} and Martins\cite{Martins_2015} presented
+test criteria for LUE of multipartite qubit states.
+Zhou etal.\cite{Zhou_2024} developed a set of LU invariants for
+the necesary condition for LUE between two multipartite qudit states.
+
+In this work, we present a systematic process for testing
+necessary and sufficient condition of local unitary equivalence
+between two multipartite qudit states.
+
+The rest of this paper is organized as follows. In
+Section~\ref{sec:setup}, we state the problem and introduce the
+mathematical notations.  In Section~\ref{sec:lue}, we introduce
+and prove the main theorem about local unitary equivalence.
+In Section~\ref{sec:finding_theta}, we lay out some important
+steps to solve the problem.  In Section~\ref{sec:steps}, we
+present a step-by-step procedure to test LUE.  We keep some
+tedieous mathematical materials in the Appendix.
 
 \section{Setup}
+\label{sec:setup}
 Let $\rho^{(a)}$ where $a = \{1, 2\}$  be two density matrices of $K$ qudits
 in the Hilbert space $H = H_1\otimes\cdots\otimes H_K$, with dimensions
-$N_k$ for subspace $H_k$. The two density matrices $\rho^{(1)}$ and $\rho^{(2)}$
-are said to be locally unitary equivalent (LUE) means that there exist a set
+$N_1,\ldots,N_K$. The two density matrices $\rho^{(1)}$ and $\rho^{(2)}$
+are said to be local unitary equivalent (LUE) when there exist a set
 of unitary matrices $U_k\in SU(N_k)$ such that
 $U = U_1\otimes\cdots\otimes U_K$ and
 \begin{equation}
   \label{eq:rho_lue}
   \rho^{(2)} = U\rho^{(1)}U^\dagger.
 \end{equation}
-
-Consider the single qudit reduced density matrices
+For each density matrix, consider its single qudit reduced density matrix
 \begin{equation}
+  \label{eq:rho_a_k}
   \rho^{(a)}_k = \Tr_{|k}\rho^{(a)},
 \end{equation}
-here the notation $\Tr_{|k}$ means take partial trace of everything else
+here the notation $\Tr_{|k}$ means take partial trace of every subspace
 except in $H_k$.  Let $D_k^{(a)}$ and $V_k^{(a)}$ be the eigenvalue and
 eigenvectors of $\rho_k^{(a)}$ such that
 \begin{equation}
@@ -56,252 +80,620 @@ and the reference density matrices as
   \label{eq:rho_ref}
   \rho^{(r, a)} = V^{(a)\dagger}\rho^{(a)}V^{(a)}.
 \end{equation}
-Here we use the superscript $r$ to differentiate the reference density matrices
-from the original density matrices.
+Here we use the superscript $r$ to differentiate the reference density
+matrices from the original density matrices. Taking the partial trace,
+we have
+\begin{equation}
+  \label{eq:rho_ref_k}
+  \rho^{(r,a)}_k = D^{(a)}_k.
+\end{equation}
 
 Let $\{T^{(N_k)}_{i_k}\mid i = 1,\ldots N_k^2-1\}$ be the set of generators
-of $SU(N_k)$, and $T^{(N_k)}_0 = I_N/\sqrt{2N_k}$.  We have
+of the defining representation of $\mathfrak{su}(N_k)$\cite{Haber_2021},
+and $T^{(N_k)}_0 = I_{N_k}/\sqrt{2N_k}$.
+We have
 \begin{eqnarray}
   \label{eq:trace_t}
   \Tr T^{(N_k)}_i & = & \delta_{i0}\sqrt{\frac{N_k}2} \\
   \label{eq:trace_t_t}
   \Tr T^{(N_k)}_iT^{(N_k)}_j & = &\frac{\delta_{ij}}2.
 \end{eqnarray}
-The reference density matrices $\rho^{(r,a)}$ can be projected on to the basis
-$\{T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}\mid i_k\in \{0, 1, \ldots, N_k^2-1\}, k \in \{1,\ldots,K\}\}$ as
+Projecting $\rho^{(r,a)}$ to the basis
+$\{T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}\}$,
 \begin{equation}
-  \label{eq:rho_proj}
-  \rho^{(r,a)} = \sum_{i_1 \ldots i_K}p^{(a)}_{i_1\ldots i_K}T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K},
+  \label{eq:ref_rho_proj}
+  \rho^{(r,a)} = \sum_{i_1=0}^{N_1^2-1}\cdots\sum_{i_K=0}^{N_K^2-1}
+  p^{(a)}_{i_1\ldots i_K}T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K},
 \end{equation}
 where
 \begin{equation}
   p^{(a)}_{i_1\cdots i_K} = 2^K\Tr\left(\rho^{(r,a)}T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}\right).
 \end{equation}
-When there is no confusion, we often use the following short hand for $p^{(a)}_{.}$
-\begin{eqnarray}
-  \label{eq:p_k}
-  p^{(a)}_{k,i_k} & = & p^{(a)}_{0\cdots0i_k0\cdots0} \\
-  \label{eq:p_k1_k2}
-  p^{(a)}_{k_1k_2,i_{k_1}i_{k_2}} & = & p^{(a)}_{0\cdots0i_{k_1}0\cdots0i_{k_2}0\cdots0} \\
-  & \cdots &  
-\end{eqnarray}
 
-Taking the trace of Eq.~(\ref{eq:rho_proj}) gives us
+Taking the trace of Eq.~(\ref{eq:ref_rho_proj}) gives us
 \begin{equation}
-  p_{0\cdots0} = \prod_{k=1}^K\sqrt{\frac{2}{N_k}}.
+  p^{(a)}_{0\cdots0} = \prod_{k=1}^K\sqrt{\frac{2}{N_k}}.
 \end{equation}
 
-Taking the partial trace for everything except the $k$-th subspace
-of Eq.~(\ref{eq:rho_proj}),
+Taking the partial trace $\Tr_{|k}$ of Eq.~(\ref{eq:ref_rho_proj}),
 \begin{equation}
   \rho^{(r,a)}_k = \Tr_{|k}\rho^{(r,a)} = \frac{I_{N_k}}{N_k}
-  + \left(\prod_{i\ne k}\sqrt{\frac{N_i}2}\right)\sum_{i_k=1}^{N_k^2-1}p_{k,i_k}T^{(N_k)}_{i_k}
+  + \left(\prod_{i\ne k}\sqrt{\frac{N_i}2}\right)\sum_{i_k=1}^{N_k^2-1}p^{(a)}_{k,i_k}T^{(N_k)}_{i_k}
 \end{equation}
 
-\section{Main results}
-The proof of Propersition~1 in Martins\cite{Martins_2015} can be extended
-from the case of qubits to the case of qudits with minimal modification.
-\begin{proposition}
-  \label{prop:one}
-  Let $\rho^{(1)}$ and $\rho^{(2)}$ be two states of $n$-qudits in the
-  Hilbert space $H = H_1\otimes\cdots\otimes H_K$ with $N_k$ being the
-  dimension of $H_k$.  Further let $D^{(a)}_k$ be the diagonal matrices
-  of eigenvalues of single qudit reduced density matrix $\rho^{(a)}_k$.
-  If there is at least one $k$, such that $D^{(1)}_k-D^{(2)}_k\ne 0$,
-  then $\rho^{(1)}$ and $\rho^{(2)}$ are not LU equivalent.
-\end{proposition}
-\begin{proof}
-  If $\rho^{(1)}$ and $\rho^{(2)}$ are LU equivalent, then
-  $\forall i = 1,\ldots,K$, there exists a local unitary operator $U_k$
-  such that $\rho^{(2)}_k = U_k\rho^{(1)}_kU_k^\dagger$, which implies
-  $D^{(1)}_k = D^{(2)}_k$.  Therefore, if $D^{(1)}_k-D^{(2)}_k\ne 0$ for any
-  $k$, then the states $\rho^{(1)}$ and $\rho^{(2)}$ are not LU equivalent.
-\end{proof}
-
+\section{Necessary and sufficient condition for LUE}
+\label{sec:lue}
+We will begin with a simple theorem.
 \begin{theorem}
-  Let $\rho^{(1)}$ and $\rho^{(2)}$ be the density matrices of two $K$-qudit
-  states.  The two states are said to be local unitary equivalent
-  if and only if there exists $K$ real vectors
-  $\theta_k\in \mathbb R^{N_k^2-1}$, such that
-  \begin{enumerate}[label=(\roman*)]
-  \item for all $k\in\{1,\ldots,K\}$,
+  \label{thm:lue}
+  The following three statements are equivalent:
+  \begin{enumerate}[label=\textbf{S.\arabic*}]
+  \item \label{thm_stm_rho_lue} $\rho^{(1)}$ and $\rho^{(2)}$ are local unitary equivalent.
+  \item \label{thm_stm_ubar} There exists a set of real vectors
+    $\{\theta^{(k)}\mid k = 1,\ldots,K\}$ such that
     \begin{equation}
-      \label{eq:commute_d}
-      \left[\sum_{i=1}^{N_k^2-1}\theta_{k,i}T^{(N_k)}_i, D_k\right] = 0,
+      \label{eq:ref_rho_lue}
+      \rho^{(r,2)} = \left(\bigotimes_{k=1}^K \bar U_k\right)
+      \rho^{(r,1)}
+      \left(\bigotimes_{k=1}^K \bar U_k\right)^\dagger,
     \end{equation}
-    where $\{T^{(N_k)}_i\mid i = 1,\ldots,N_k^2-1\}$ are the generators of
-    $SU(N_k)$ and $D_k = D^{(1)}_k = D^{(2)}_k$. And
-  \item the projections of the reference form of the density matrices are
-    related by the matrices
-    $R^{(k)} = \exp\left(i\sum_{j=1}^{N_k^2-1}\theta_{k,j}F^{(N_k)}_j\right)$
-    as
+    where
     \begin{equation}
-      \label{eq:p2_r_p1}
-      p^{(2)}_{j_1\cdots j_K} =
-      \sum_{j_1=1}^{N_1^2-1}\cdots\sum_{j_K=1}^{N_K^2-1}R^{(1)}_{i_1j_1}
-      \cdots R^{(K)}_{i_Kj_K}p^{(1)}_{j_1\cdots j_K}.
+      \label{eq:ubar_k_exp_map}
+      \bar U_k = \exp\left(i\sum_{i=1}^{N_k^2-1}\theta^{(k)}_iT^{(N_k)}_i\right).
     \end{equation}
+  \item \label{thm_stm_R} There exists a set of real vectors
+    $\{\theta^{(k)}\mid k = 1,\ldots,K\}$ such that
+    \begin{equation}
+      p^{(2)}_{i_1\cdots i_K} = \sum_{j_1=0}^{N_1^2-1}\cdots\sum_{j_K=0}^{N_K^2-1}
+      \tilde R^{(1)}_{i_1j_1}\cdots\tilde R^{(K)}_{i_Kj_K}
+      p^{(1)}_{j_1\cdots j_K},
+    \end{equation}
+    where
+    \begin{equation}
+      \label{eq:tilde_R_k}
+      \tilde R^{(k)} = \begin{bmatrix}1 & 0 \\
+        0 & R^{(k)}
+        \end{bmatrix},
+    \end{equation}
+    and
+    \begin{equation}
+      \label{eq:R_k}
+      R^{(k)} = \exp\left(i\sum_{i=1}^{N_k^2-1}\theta^{(k)}_iF^{(N_k)}_i\right),
+    \end{equation}
+    with $F^{(k)}_i$ the adjoint representation of $T^{(N_k)}_i$.
   \end{enumerate}
 \end{theorem}
-
-\begin{proof}
-  Necessary condition. If $\rho^{(1)}$ and $\rho^{(2)}$ are local unitary
-  equivalent, then from Eq.~(\ref{eq:rho_lue}) and Eq.~(\ref{eq:rho_ref}),
-  their reference forms are related as
+\begin{proof}  We will first prove from \ref{thm_stm_rho_lue} to
+  \ref{thm_stm_ubar}.  By the definition of $\rho^{(1)}$ and $\rho^{(2)}$
+  are local unitary equivalent, these exists a set of
+  $U_k\in SU(N_k)$ for $k = 1,\ldots,K$ such that
   \begin{equation}
-    \label{eq:ref_lue}
-    \rho^{(r,2)} = \bar U\rho^{(r,1)}\bar U^\dagger,
+    \rho^{(2)} = \left(\bigotimes_{k=1}^KU_k\right)
+    \rho^{(1)}
+    \left(\bigotimes_{k=1}^KU_k\right)^\dagger.
   \end{equation}
-  where $\bar U = \bar U_1\otimes\cdots\bar U_K$ and
-  $\bar U_k = V^{(2)\dagger}_kU_kV^{(1)}_k$.  And the projection of the
-  reference forms are related by
-  \begin{equation}
-    \label{eq:proj_ref}
-    \sum_{i_1\ldots i_K}p^{(2)}_{i_1\ldots i_K}
-    T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}
-    = \sum_{i_1\ldots i_K}p^{(1)}_{i_1\ldots i_K}
-    \bar U\left(T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}
-    \right)\bar U^\dagger
-  \end{equation}
-  Take partial trace over everything except the $k$-th subspace,
-  utilitize Eq.~(\ref{eq:trace_t}),
-  \begin{equation}
-    \label{eq:proj}
-    \sum_{i_k=0}^{N_k^2-1}p^{(2)}_{k,i_k}T^{(N_k)}_{i_k} =
-    \sum_{i_k=0}^{N_k^2-1}p^{(1)}_{k,i_k}\bar U_kT^{(N_k)}_{i_k}\bar U_k^\dagger,
-  \end{equation}
-  with $p^{(a)}_{k,i_k}$ defined in Eq.~(\ref{eq:p_k}).
-  But $\sum_{i_k=0}^{N_k^2-1}p^{(a)}_{k,i_k} = D^{(a)}_k$, and from
-  Proposition~\ref{prop:one}, $D^{(1)}_k = D^{(2)}_k = D_k$,
-  this means $D_k = \bar U_k D_k \bar U_k^\dagger$, or
-  $[\bar U_k, D_k] = 0$.  Since $\bar U_k\in SU(N_k)$, it can be
-  written as
-  \begin{equation}
-    \bar U_k = \exp\left(i\sum_{i=1}^{N_k^2-1}\theta_{k,i}T^{N_k}_i\right),
-  \end{equation}
-  that leads to Eq.~(\ref{eq:commute_d}).
-
-  Since $\bar U = \bar U_1\otimes\cdots\otimes \bar U_K$, we have
-  \begin{equation}
-    \bar U\left(T^{N_1}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K}\right)\bar U^\dagger
-    = \left(\bar U_1T^{(N_1)}_{i_1}\bar U_1^\dagger\right)
-    \otimes\cdots\otimes
-    \left(\bar U_KT^{(N_K)}_{i_K}\bar U_K^\dagger\right).
-  \end{equation}
-  Because $T^{(N_k)}_{i_k} \in \mathfrak{su}(N_k)$ and $\bar U_k\in SU(N_k)$,
-  as we shown in Appendix~\ref{appendix:adj_rep},
-  \begin{equation}
-    \bar U_kT^{(N_k)}_{i_k}\bar U_k^\dagger = \text{Ad}_{\bar U_k}(T^{(N_k)}_{i_k})
-    = \sum_{j_k=1}^{N_k^2-1}R^{(k)}_{i_kj_k}T^{(N_k)}_{j_k}.
-  \end{equation}
-  Combining this with Eq.~(\ref{eq:proj_ref}) leads us to
-  Eq.~(\ref{eq:p2_r_p1}).
-
-
+  Let $\bar U_k = V^{(2)\dagger}_kU_kV^{(1)}_k$, the definition of $\rho^{(r,a)}$
+  leads us directly to Eq.~(\ref{eq:ref_rho_lue}).  The fact that $U_k$,
+  $V^{(a)}_k$ are all in $SU(N_k)$ leads to $\bar U_k\in SU(N_k)$ and
+  Eq.~(\ref{eq:ubar_k_exp_map}) follows directly.
   
-  Sufficient contition.
-  To be completed...
+  Now we will prove from \ref{thm_stm_ubar} to \ref{thm_stm_R}.
+  From \ref{thm_stm_ubar} and Eq.~(\ref{eq:ref_rho_proj}), we have
+  \begin{eqnarray}
+    & & \sum_{i_1=0}^{N_1^2-1}\cdots\sum_{i_K=0}^{N_K^2-1}p^{(2)}_{i_1\ldots i_K}
+    T^{(N_1)}_{i_1}\otimes\cdots\otimes T^{(N_K)}_{i_K} \nonumber \\ 
+    \label{eq:proj_ref}
+    & = & \sum_{i_1=0}^{N_1^2-1}\cdots\sum_{i_K=0}^{N_K^2-1}p^{(1)}_{i_1\ldots i_K}
+    \left(\bar U_1T^{(N_1)}_{i_1}\bar U_1^\dagger\right)\otimes\cdots\otimes
+    \left(\bar U_KT^{(N_K)}_{i_K}\bar U_K^\dagger\right)
+  \end{eqnarray}
+  As shown in Appendix~\ref{appendix:adj_rep}, for $1 \le i_k \le N_k^2-1$,
+  \begin{equation}
+    \bar U_kT^{(N_k)}_{i_k}\bar U_k^\dagger =
+    \sum_{j_k=1}^{N_k^2-1}T^{(N_k)}_{j_k}R^{(k)}_{j_ki_k},
+  \end{equation}
+  where $R^{(k)}$, defined as in Eq.~(\ref{eq:R_k}),
+  is the adjoint representation of $\bar U_k$ and $F^{(N_k)}_{i_k}$ is the
+  adjoint representation of $T^{(N_k)}_{i_k}$.  Together with
+  $\bar U_kT^{(N_k)}_0\bar U_k^\dagger = T^{(N_k)}_0$, we have
+  \begin{equation}
+    \bar U_kT^{(N_k)}_{i_k}\bar U_k^\dagger =
+    \sum_{j_k=0}^{N_k^2-1}T^{(N_k)}_{j_k}\tilde R^{(k)}_{j_ki_k},
+    \qquad 0 \le i_k \le N_k^2-1,
+  \end{equation}
+  with $\tilde R^{(k)}$ as defined in Eq.~(\ref{eq:tilde_R_k}).
+
+  Finally we complete the proof by showing \ref{thm_stm_R} leads to
+  \ref{thm_stm_rho_lue}.  If \ref{thm_stm_R} is true, let
+  $\bar U_k = \exp\left(i\sum_{i_k=1}^{N_k^2-1}\theta^{(k)}_{i_k}T^{(N_k)}_{i_k}\right)$,
+  then $R^{(k)}$ is the adjoint representation of $\bar U_k$,
+  which leads to Eq.~(\ref{eq:ref_rho_lue}).  Combining with
+  Eq.~(\ref{eq:rho_ref}), we arrive with the conclusion of
+  \ref{thm_stm_rho_lue}.
 \end{proof}
 
-{\Huge here}
-\section{Working Notes}
-\subsection{First approach}
-My first approach, is to take SVD on the trimmed projection tensor
-$P^{(\alpha)}_{i_1\ldots i_K}$ with $i_k$ goes from 1 to $N_k$.
 
+\section{Finding \texorpdfstring{$\{\theta^{(k)}\}$}{theta.k}}
+\label{sec:finding_theta}
+From Theorem~\ref{thm:lue}, the problem of testing local unitary
+equivalence between $\rho^{(1)}$ and $\rho^{(2)}$ becomes testing
+the existance of the vector set $\{\theta^{(k)}\mid k = 1,\ldots,K\}$.
 
-Unfornately, this approach failed.  To illustrate the problem, let's
-consider the case of two qubits.
+If $\rho^{(1)}$ and $\rho^{(2)}$ are local unitary equivalent, take
+partial trace $\Tr_{|k}$ on both sides of Eq.~(\ref{eq:ref_rho_lue}),
+and combine with Eq.~(\ref{eq:rho_ref_k}), we have
 \begin{equation}
-  P^{(\alpha)} = \begin{bmatrix}
-    P^{(\alpha)}_{00} & P^{(\alpha)}_{0*} \\
-    P^{(\alpha)}_{*0} & \tilde P^{(\alpha)}
-  \end{bmatrix}.
+  D_k = \bar U_k D_k\bar U_k^\dagger.
 \end{equation}
-When $\tilde P^{(\alpha)}$ is not full rank, the transformation
-$\tilde P^{(b)} = L\tilde P^{(a)} R$ is not unique.  One might not
-find the right set of $(L, R)$ such that transforms $P^{(a)}_{*0}$
-and $P^{(a)}_{0*}$ correctly.
+This result is a direct generalization of Proposition~1 of
+Martins\cite{Martins_2015}.
 
-\subsection{Using reference density matrix}
+Let $\tilde D_k = D_k-I_{N_k}/N_k$ and $\bar U_k = \exp(i\bar u_k)$, then
+$\tilde D_k\in \mathfrak{su}(N_k)$ and
+$\bar u_k = \sum_{j=1}^{N_k^2-1}\theta^{(k)}_jT^{(N_k)}_j\in
+\text{C}_{\mathfrak{su}(N_k)}(\tilde D_k)$ where
+$\text{C}_{\mathfrak{su}(N_k)}(\tilde D_k)$
+is the centralizer of $\tilde D_k$.  As shown in
+Appendix~\ref{appendix:centralizer}, this implies a set of constraints to
+$\theta^{(k)}$,
+\begin{equation}
+  \label{eq:theta_con}
+  M_k\theta^{(k)} = 0.
+\end{equation}
+Selecting the $SU(N)$ generators as in Eq.~(\ref{eq:t_a}) and
+Eq.~(\ref{eq:t_a_ordering}), the matrix $M_k$ has the form
+\begin{equation}
+  \label{eq:M_k}
+  M_k = \left(\bigoplus_{1\le i<j\le N}(d_{k,j}Y-d_{k,i}Y)\right)\oplus0_{N-1}.
+\end{equation}
+For each pair $1 \le i < j \le N_k$ that $d_{k,i} \ne d_{k,j}$, there
+are a pair of constraint on $\theta^{(k)}$ such that
+\begin{equation}
+  \label{eq:theta_constraint}
+  \theta^{(k)}_{0ij} = \theta^{(k)}_{1ij} = 0.
+\end{equation}
 
-\subsection{Using constrained SVD}
-How?
+Now let us consider the case when all diagonal entries in $D_k$ are distinct.
+This means for all
+$1 \le i < j \le N$, $d_{k,i}-d_{k,j} = 0.$  Eq.~(\ref{eq:theta_constraint})
+tells us that $\theta^{(k)}_{0ij} = \theta^{(k)}_{1ij} = 0$.  Only possible
+nonzero in $\theta^{(k)}$ are the ones corresponding to diagonal generators
+$T_l$.  In this case, $\bar U_k$ must be diagonal, Eq.~(\ref{eq:R_g_diag})
+in Appendix~\ref{appendix:adj_rep} shows that
+\begin{equation}
+  \label{eq:R_type_A}
+  R^{(k)} = \left(\bigoplus_{1\le i < j \le N}
+  \begin{bmatrix}
+    \cos(\eta_i-\eta_j) & \sin(\eta_i-\eta_j) \\
+    -\sin(\eta_i-\eta_j) & \cos(\eta_i-\eta_j)
+  \end{bmatrix}\right)
+  \oplus I_{N-1}.
+\end{equation}
+For our convenience, we call this type qudits type A qudits.
 
-\subsection{Carefully analynize rank deficient cases}
+A type B qudit has some degeneracy in $D_k$,
+but with at least one $d_{k,i}$ distinct from all others.
+We order the eigenvalues in such a way so $D_{k,N}$ is distinct from
+all others.  Thus $\theta^{(k)}_{0iN} = \theta^{(k)}_{1iN} = 0$ for all $i$.
+On the other hand, by choosing the generators as the generalized Gell-Mann
+matrices divided by 2, we have
+\begin{equation}
+  [T_{N-1},\, T_{0ij}] = [T_{N-1},\, T_{1ij}] = 0,\qquad 1\le i < j \le N-1.
+\end{equation}
+Eq.~(\ref{eq:R_g_1}) in Appendix~\ref{appendix:adj_rep} means
+\begin{equation}
+  \label{eq:R_type_B}
+  R^{(k)} = S^{(k)}\oplus1,
+\end{equation}
+where $S^{(k)}$ is a $(N^2-2)\times(N^2-2)$ matrix.
+
+Now consider two qudits $k_1$ and $k_2$
+Let $P^{(a,k_1k_2)}$, $a = 1, 2$ be two matrices defined by
+\begin{equation}
+  \left(P^{(a,k_1k_2)}\right)_{i_{k_1}i_{k_2}} = p^{(a)}_{0\cdots0i_{k_1}0\cdots0i_{k_2}0\cdots0},
+\end{equation}
+where $1 \le i_{k_1} \le N_{k_1}^2-1$, $1 \le i_{k_2} \le N_{k_2}^2-1$.
+According to Theorem~\ref{thm:lue} \ref{thm_stm_R}, LUE means
+\begin{equation}
+  \label{eq:RP}
+  P^{(2,k_1k_2)} = R^{(k_1)}P^{(1,k_1k_2)}(R^{(k_2)})^T.
+\end{equation}
+Assume qudit $k_1$ is type A and $k_2$ either type A or B, then
+$R^{(k_1)}$ has the form as in Eq.~(\ref{eq:R_type_A}) and
+$R^{(k_2)}$ as in Eq.~(\ref{eq:R_type_B}).  This leads to
+\begin{equation}
+  \label{eq:vRv}
+  v^{(2,k_1k_2)} =  R^{(k_1)}v^{(1,k_1k_2)},
+\end{equation}
+where $v^{(a,k_1k_2)}$ is the last column of matrix $P^{(a,k_1k_2)}$
+for $a = 1, 2$.
+
+$R^{(k_1)}$ and $\theta^{(k_1)}$ can be solved following the steps as in
+Appendix~\ref{appendix:diag_U}.
+
+For any type qudit $k_1$, if $R^{(k_2)}$ is known, Eq.~(\ref{eq:RP})
+tells us that
+\begin{equation}
+  \label{eq:k1k2}
+  P^{(2,k_1k_2)}R^{(k_2)} = R^{(k_1)}P^{(1,k_1k_2)}.
+\end{equation}
+If $P^{(1,k_1k_2)}$ is invertible, then
+\begin{equation}
+  R^{(k_1)} = P^{(2,k_1k_2)}R^{(k_2)}(P^{(1,k_1k_2)})^{-1}.
+\end{equation}
+In the case that $P^{(1,k_1k_2)}$ is not invertible, if we have already solved
+other qudits $k_3, k_4, \ldots$, then we have
+\begin{equation}
+  \label{eq:k1k3}
+  P^{(2,k_1k_3)}R^{(k_3)} = R^{(k_1)}P^{(1,k_1k_3)}.
+\end{equation}
+Continue to add solved qudits until the combined Eq.~(\ref{eq:k1k2}),
+Eq.~(\ref{eq:k1k3}), and so on until either having enough ranks to
+uniquely solve for $R^{(k_1)}$ or exhausted all solved qudits.
+
+Once $R^{(k_1)}$ is solved, we can follow the steps in
+Appendix~\ref{appendix:general_U} to solve for $\theta^{(k_1)}$ and
+$\bar U_{k_1}$.
+
+Consider a general type qudit $k_1$ and a type B qudit $k_2$, because
+$R^{(k_1)}$ does not have the block diagonal form, Eq.~(\ref{eq:vRv})
+is not enough to solve for $R^{(k_1)}$.  If we have other type B
+qudits in $k_3,k_4,\ldots$ then
+\begin{eqnarray}
+  v^{(2,k_1k_3)} & = &  R^{(k_1)}v^{(1,k_1k_3)} \\
+  v^{(2,k_1k_4)} & = &  R^{(k_1)}v^{(1,k_1k_4)} \\
+              &\cdots&
+\end{eqnarray}
+If these equations add enough rank to Eq.~(\ref{eq:vRv}), then we
+can solve for $R^{(k_1)}$.
+
+One matrix $R^{(k)}$ of the general form for qudit $k$ is uniquely
+solved, we can follow the steps in Appendix~\ref{appendix:general_U},
+to determine if it is a member of $\text{Ad}(SU(N_{k1}))$, and if so
+to solve for $\theta^{(k)}$ and $\bar U_k$.
+
+\section{Complete step by step procedure}
+\label{sec:steps}
+In this section, we will state the complete step by step procedure
+for testing local unitary equivelance of two qudit density matrices.
+
+Let us start with two density matrices $\rho^{(1)}$ and $\rho^{(2)}$
+in the Hilbert space $H = H_1\otimes\cdots\otimes H_K$.
+\begin{enumerate}
+\item For $a = 1, 2$, $k = 1,\ldots,K$, compute single qudit
+  reduced density matrices $\rho^{(a)}_k$ as in Eq.~(\ref{eq:rho_a_k}).
+\item For each $\rho^{(a)}_k$, compute its eigendecomposition $D^{(a)}_k$
+  and $V^{(a)}_k$.
+\item For $k = 1,\ldots,K$, test if $D^{(1)}_k = D^{(2)}_k$.  If the test
+  fails for any $k$, then $\rho^{(1)}$ and $\rho^{(2)}$ are not local
+  unitary equivalent.
+\item Build reference reduced density matrices as in
+  Eq.~(\ref{eq:rho_ref}).
+\item For $k = 1,\ldots,K$, check for degeneracy in $D^{(1)}_k$,
+  determine the zero constraints on $\theta^{(k)}$ as in
+  Eq.~(\ref{eq:theta_constraint}), and collect the lists of type A
+  and type B qudits.
+\item For the following case
+  \begin{enumerate}
+  \item There are two or more type A qudits, or
+  \item There are one type A qudit and one or more type B qudits, or
+  \item There is no type A qudit but enough type B qudits.
+  \end{enumerate}
+  Start solving for $R^{(k)}$, $\theta^{(k)}$ following the steps laid
+  out in Section~\ref{sec:finding_theta}.  If we find a set of
+  $\{\bar U_k\}$ satisfying \ref{thm_stm_ubar} of Theorem~\ref{thm:lue},
+  then $\rho^{(1)}$ and $\rho^{(2)}$ are local unitary equivalent.
+  If $P^{(1)}$ and $P^{(2)}$ are not consistent, or the solution
+  $R^{(k)}$ is not in $\text{Ad}(SU(N_k))$ for any $k$, then
+  $\rho^{(1)}$ and $\rho^{(2)}$ are not local unitary equivalent.
+\item If not all $\{\theta^{(k)}\}$ can be solved algebraically, then
+  solve the minimization problem
+  \begin{equation}
+    \min_{\theta^{(k)}}\lVert \rho^{(r,2)}-\bar U\rho^{(r,1)}\bar U^\dagger\rVert^2,
+  \end{equation}
+  where
+  \begin{equation}
+    \bar U = \bigotimes_{k=1}^K\exp\left(i\sum_{a=1}^{N_k^2-1}
+    \theta^{(k)}_aT^{(N_k)}_a\right).
+  \end{equation}
+  Note that all the solved or partial solved $\theta^{(k)}$ in the
+  previous steps are fixed at their solved values, and those zero
+  constrained $\theta^{(k)}$ as in Eq.~(\ref{eq:theta_constraint})
+  are fixed at zero during the minimization process.
+  If the minimum is zero, then $\rho^{(1)}$ and $\rho^{(2)}$ are
+  local unitary equivalent, otherwise, they are not.
+
+  A word of caution, numerical minimization may produce local
+  minimum, it is prudent to try multiple starting points to
+  increase the chance finding the global minimum.
+\end{enumerate}
 
 \appendix
+\section{Generalized Gell-Mann Matrices}
+\label{appendix:ggm}
+The definition of the generalized Gell-Mann matrices\cite{Bertlmann_2008}
+for $SU(N)$ group can be summarized as the following,
+\begin{eqnarray}
+  \Lambda_{0ij} & = & \op{i}{j}+\op{j}{i} \\
+  \Lambda_{1ij} & = & -i\op{i}{j}+i\op{j}{i} \\
+  \Lambda_{l}   & = & \sqrt{\frac{2}{l(l+1)}}\left(
+    \sum_{k=1}^l\op{k}{k}-l\op{l+1}{l+1}\right).
+\end{eqnarray}
+where $1 \le i < j \le N$ and $1 \le l < N$.
+
+The set of generators for $SU(N)$ are chosen as
+\begin{equation}
+  \label{eq:t_a}
+  T_a = \frac{\Lambda_a}{2},
+\end{equation}
+where index $a$ are in the form of $0ij$, $1ij$, $l$.  We order
+the generators as
+\begin{equation}
+  \label{eq:t_a_ordering}
+  \left\{T_{012}, T_{112}, \ldots, T_{0(N-1)N}, T_{1(N-1)N}, T_1,\ldots,
+  T_{N-1}\right\}.
+\end{equation}
+We always use this set of $\{T_a\}$ with this ordering when a specific
+set of generators for $SU(N)$ is needed throughout this work.
+
+
 \section{Adjoint representation}
 \label{appendix:adj_rep}
-Let $G$ be a Lie group and $\mathfrak{g}$ be its Lie algebra, the adjoint
-representation $\text{Ad}_g$ of $G$ is a map
-$\mathfrak{g}\rightarrow\mathfrak{g}$ such that $\forall g\in G$, and
-$X \in \mathfrak{g}$,
+Consider the group $SU(N)$ and its Lie algebr $\mathfrak{su}(N)$, the adjoint
+representation\cite{hall2000elementaryintroductiongroupsrepresentations}
+$\text{Ad}_g$ of $SU(N)$ is a map
+$\mathfrak{su}(N)\rightarrow\mathfrak{su}(N)$ such that $\forall g\in SU(N)$
+and $X \in \mathfrak{su}(N)$,
 \begin{equation}
   \text{Ad}_g(X) = gXg^{-1}.
 \end{equation}
-Let $\{T_a\}$ be a set of generators of $G$,
+Let $\{T_a\}$ be the set of generators of the defining representation of
+$\mathfrak{su}(N)$,
 \begin{equation}
-  \text{Ad}_g(T_a) = gT_ag^{-1} = R_{g,ab}T_b,
+  \label{eq:R_g}
+  \text{Ad}_g(T_a) = gT_ag^{-1} = \sum_b T_b R_{g,ba},
 \end{equation}
-with the normalization
+Consider the $\exp$ map, $g = \exp\left(i\sum_a\theta_a T_a\right)$, we have
 \begin{equation}
-  \Tr T_aT_b = \frac12\delta_{ab},
+  \text{Ad}_g = \exp\left(i\sum_a\theta_a\text{ad}T_a\right)
+  = \exp\left(i\sum_a\theta_aF_a\right),
 \end{equation}
-we have
+where $\{F_a\}$ is the set of generators of the adjoint representation
+of $\mathfrak{su}(N)$, and
 \begin{equation}
-  R_{g,ab} = 2\Tr gT_ag^{-1}T_b.
+  R_g = \exp\left(i\sum_a\theta_aF_a\right).
 \end{equation}
-Thus the matrix $R_g$ is the adjoint representation of $g\in G$.
 
-\section{The centralizer of $SU(N)$}
-For a group $G$, the centralizer of a subset $S\in G$ is
+If $g$ commutes with a particular generator $T_a$, then $gT_ag^{-1} = T_a$,
+Eq.~(\ref{eq:R_g}) yields
 \begin{equation}
-  \text{C}_G(S) = \{g\in G\mid gs = sg \text{ for all } s\in S\}
+  \label{eq:R_g_1}
+  R_{g,ba} = \delta_{ab}.
 \end{equation}
-The notation $\text{C}_G(s)$ is also used for a singleton group
+
+If $g\in SU(N)$ is diagonal, $g = \text{diag}(e^{i\eta_1},\ldots,e^{i\eta_N})$,
+with the generators $T_a = \Lambda_a/2$, we can directly compute that
+\begin{eqnarray}
+  gT_{0ij}g^\dagger & = & \cos(\eta_i-\eta_j)T_{0ij} + \sin(\eta_i-\eta_j)T_{1ij} \\
+  gT_{1ij}g^\dagger & = & -\sin(\eta_i-\eta_j)T_{0ij} + \cos(\eta_i-\eta_j)T_{1ij} \\
+  gT_lg^\dagger & = & T_l.
+\end{eqnarray}
+Thus
+\begin{equation}
+  \label{eq:R_g_diag}
+  R_g = \left(\bigoplus_{1\le i < j \le N}
+  \begin{bmatrix}
+    \cos(\eta_i-\eta_j) & \sin(\eta_i-\eta_j) \\
+    -\sin(\eta_i-\eta_j) & \cos(\eta_i-\eta_j)
+  \end{bmatrix}\right)
+  \oplus I_{N-1}.
+\end{equation}
+
+If $H\in \mathfrak{su}(N)$ is diagonal, $H = \text{diag}(H_1,\ldots,H_N)$,
+then with $T_a = \Lambda_a/2$, we have
+\begin{eqnarray}
+  [H,\, T_{0ij}] & = & i(H_i-H_j)T_{1ij}, \\{}
+  [H,\, T_{1ij}] & = & -i(H_i-H_j)T_{0ij}, \\{}
+  [H,\, T_l] & = & 0.
+\end{eqnarray}
+That is
+\begin{equation}
+  \label{eq:ad_h}
+  \text{ad}_H = \left(\bigoplus_{i,j}(H_i-H_j)Y\right)\oplus0_{N-1},
+\end{equation}
+where $Y$ is the second Pauli matrix.
+
+
+\section{The centralizer of \texorpdfstring{$\mathfrak{su}(N)$}{su(N)}}
+\label{appendix:centralizer}
+For a Lie algebra $\mathfrak{g}$, the centralizer\cite{jacobson_1979}
+of a subset $S$ of $\mathfrak{g}$ is
+\begin{equation}
+  \text{C}_{\mathfrak{g}}(S) = \{x\in \mathfrak{g}\mid xs = sx \text{ for all } s\in \mathfrak{g}\}
+\end{equation}
+The notation $\text{C}_{\mathfrak{g}}(s)$ is also used for a singleton set
 $S = \{s\}$.
 
-Let $s = e^{is_aT_a}\in SU(N)$, its centralizer is
+Let $s = \sum_a\sigma_aT_a\in \mathfrak{su}(N)$, its centralizer is
 \begin{equation}
-  \text{C}_{SU(N)}(s) = \{g\in SU(N) \mid gs=sg \text{ for all } s\in S\}
+  \text{C}_{\mathfrak{su}(N)}(s) = \{x\in \mathfrak{su}(N) \mid xs=sx \text{ for all } s\in S\}
 \end{equation}
-We can express $g$ as
+Write $x$ as
 \begin{equation}
-  g = e^{ix_aT_a},
+  x = \sum_a \chi_aT_a,
 \end{equation}
-the commuting condition $gs = sg$ is equivalent to
+the commuting condition $xs = sx$ is equivalent to
 \begin{equation}
-  [x_aT_a, s_bT_b ] = 0,
+ \left[\sum_a\chi_aT_a, \sum_b\sigma_bT_b\right] = 0.
 \end{equation}
-or
+Define matrix $M$ as
 \begin{equation}
-  f_{abc}x_as_b = 0,
+  M = \sum_c\sigma_cF_c = \text{ad}_s,
 \end{equation}
-where $f_{abc}$ is the structure constant of $SU(N)$.  Define matrix
-$M$ as
-\begin{equation}
-  M_{ab} = s_cf_{cab},
-\end{equation}
+where $F_c$ is the generators of adjoint representation of $\mathfrak{su}(N)$,
 the commuting condition becomes
 \begin{equation}
   \label{eq:mx_eq_0}
   Mx = 0,
 \end{equation}
-where $x$ is a column vector with element $x_a$.
+where $x$ is a column vector with element $\chi_a$.
 
-Consider the case $s_aT_a$ is diagonal,  then the $M$ matrix
-has the following block structure\footnote{Assuming the generators $T_a$
-are ordered in the way the $N(N-1)/2$ pairs of symmetrical and
-skew-symmetrical generators comes first, then the last $N-1$
-ones are diagonal.}
+Now consider the case $s$ is diagonal, that is
 \begin{equation}
-  M = \begin{bmatrix} \bar M & 0 \\ 0 & 0\end{bmatrix},
+  s = \text{diag}(s_1,\ldots,s_N).
 \end{equation}
-where $\bar M$ is a $N(N-1)\times N(N-1)$ block diagonal matrix with
-$2\times2$ skew-symmtrical blocks.  Thus, Eq.~(\ref{eq:mx_eq_0})
-constrains $x_a = 0$ for $a$ corresponding to a non-zero row in
-$\bar M$.
+According to Eq.~(\ref{eq:ad_h}), we have
+\begin{equation}
+  M = \text{ad}_s = \left(\bigoplus_{1\le i < j\le N}(s_i-s_j)Y\right)
+  \oplus0_{N-1}.
+\end{equation}
+
+\section{Solving for diagonal \texorpdfstring{$U\in SU(N)$}{U in SU.N}}
+\label{appendix:diag_U}
+Let $U$ be a diagonal element of $SU(N)$, its exponential map is
+\begin{equation}
+  \label{eq:U_exp_map}
+  U = \exp\left(i\sum_{l=1}^{N-1}\theta_lT_l\right),
+\end{equation}
+where $T_l = \Lambda_l/2$ is diagonal. The adjoint representation of $U$
+is
+\begin{equation}
+  \label{eq:R_exp_map}
+  R = \exp\left(i\sum_{l=1}^{N-1}\theta_lF_l\right).
+\end{equation}
+where $F_l = \text{ad}_{T_l}$ with matrix elements
+\begin{equation}
+  \left(F_l\right)_{ab} = -if_{lab},
+\end{equation}
+here $f_{lab}$ is the structure constants of $SU(N)$.  Using the definition
+of the generalized Gell-Mann matrices in Appendix~\ref{appendix:ggm}, we
+have
+\begin{equation}
+  F_l = \left(\bigoplus_{1\le i < j\le N}f_{l,0ij,1ij}Y\right)\oplus0_{N-1},
+\end{equation}
+where $Y$ is the second Pauli matrix and $0_{N-1}$ is a $(N-1)\times(N-1)$
+matrix of zeros.  Using the identity
+$\exp(i\phi Y) = \cos\phi I+i\sin\phi Y$, we have
+\begin{eqnarray}
+  R & = & \exp\left(\sum_{l=1}^{N-1}i\theta_lF_l\right) \\
+  & = & \exp\left(\left(\bigoplus_{1\le i<j\le N}
+  i\sum_{l=1}^{N-1}\theta_lf_{l,0ij,1ij}Y\right)\oplus0_{N-1}\right) \\
+  & = & \left(\bigoplus_{1\le i<j\le N}R^{(ij)}\right)\oplus I_{N-1},
+\end{eqnarray}
+where
+\begin{eqnarray}
+  R^{(ij)} & = & \cos\phi_{ij}I
+  + i\sin\phi_{ij} Y \\
+  \label{eq:phi_ij}
+  \phi_{ij} & = & \sum_{l=1}^{N-1}\theta_lf_{l,0ij,1ij}
+\end{eqnarray}
+
+Assume there are two vectors $v^{(1)}$ and $v^{(2)}$ such that
+\begin{equation}
+  v^{(2)} = Rv^{(1)}.
+\end{equation}
+Partition $v^{(a)}$ into $2\times1$ vectors $v^{(a)}_{ij}$ and
+$(N-1)\times1$ vector $v^{(a)}_H$ so that
+\begin{equation}
+  v^{(a)} = \left(\bigoplus_{1\le i < j \le N}v^{(a)}_{ij}\right)\oplus v^{(a)}_H.
+\end{equation}
+Here the notation $\oplus$ represents concatenation of vectors
+(not to be confused with direct sum of matrices).
+We have
+\begin{eqnarray}
+  v^{(2)}_{ij} & = & R^{(ij)}v^{(1)}_{ij}, \\
+  v^{(2)}_H & = & v^{(1)}_H.
+\end{eqnarray}
+For each pair $\lVert v^{(1)}\rVert = \lVert v^{(2)}\rVert > 0$,
+one can solve for $\phi_{ij}$ as
+\begin{eqnarray}
+  \cos\phi_{ij} & = & \frac{v^{(1)}_{ij,1}v^{(2)}_{ij,1}+v^{(1)}_{ij,2}v^{(2)}_{ij,2}}
+          {\lVert v^{(1)}_{ij}\rVert^2}, \\
+  \sin\phi_{ij} & = & \frac{v^{(1)}_{ij,2}v^{(2)}_{ij,1}-v^{(1)}_{ij,1}v^{(2)}_{ij,2}}
+          {\lVert v^{(1)}_{ij}\rVert^2}, \\
+  \phi_{ij} & = & \text{atan2}(\sin\phi_{ij}, \cos\phi_{ij}).
+\end{eqnarray}
+According to Eq.~(\ref{eq:phi_ij}), $\phi_{ij}$ is a linear combination
+of $\theta_l$, with the set of solved $\phi_{ij}$, that gives us a system of
+linear equation to solve for $\theta$.
+
+If the rank of the system is $N-1$, then we can uniquely solve $\theta$.
+Thus $R$ is completely given by Eq.~(\ref{eq:R_exp_map}) and $U$ by
+Eq.~(\ref{eq:U_exp_map}).
+
+If the rank is under than $N-1$,
+sometime we can solve for part of $\theta$ vector, which would be useful
+for our problem, too.
+
+\section{Solving for \texorpdfstring{$U$}{U} from \texorpdfstring{$R$}{R}}
+\label{appendix:general_U}
+Given $R\in SO(N^2-1)$, our task is to answer the follwing questions:
+\begin{enumerate}
+\item \label{q:in_SU_N}is $R\in\text{Ad}(SU(N))$?
+\item \label{q:found_u}If the answer to question~\ref{q:in_SU_N} is yes,
+  find $U\in SU(N)$ such that $R = \text{Ad}_U$.
+\end{enumerate}
+
+For any $U\in SU(N)$, let $U = Ve^{iH}V^\dagger$ be its eigendecomposition,
+where $V\in SU(N)$, $H = \text{diag}(H_1,\ldots,H_N)$ and $\Tr H = 0$.
+Furthermore, we can restrict $H$ such that for all $i, j$,
+\begin{equation}
+  \label{eq:h_ij}
+  |H_i-H_j| \in (-2\pi, 2\pi].
+\end{equation}
+In fact, let $H_{i_+} = \max_i H_i$, $H_{i_-} = \min_i H_i$, if
+$H_{i_+}-H_{i_-} > 2\pi$, we can redefine $H$ such that
+\begin{equation}
+  H_i\rightarrow\begin{cases}
+  H_i - 2\pi & i = i_+, \\
+  H_i + 2\pi & i = i_-, \\
+  H_i & \text{otherwise}.
+  \end{cases}
+\end{equation}
+Repeating the process and we can always find $H$ satisfying
+Eq.~(\ref{eq:h_ij}).
+
+Since $H$ commutes with any diagonal member of $\mathfrak{su}(N)$, then
+the multiplicity of eigenvalue 0 of $\text{ad}_H$ should be at least $N-1$,
+and the multiplicity of eigenvalue 1 of $\text{Ad}_U$ should be at least
+$N-1$.
+
+If the multiplicity of eigenvalue 1 of matrix $R$ is less than $N-1$, then
+the answer to question~\ref{q:in_SU_N} is no and we stop here.
+
+Otherwise, $R$ can be written in the form
+\begin{equation}
+  R = P\left(\left(\bigoplus_{l=1}^{N(N-1)/2}B(\phi_l)\right)
+  \oplus I_{N-1}\right)P^T,
+\end{equation}
+where $P\in SO(N^2-1)$, $I_{N-1}$ is the $(N-1)\times(N-1)$ identity matrix,
+and $B(\phi_l)$ are the $2\times2$ rotation matrix
+\begin{equation}
+  B(\phi) = \begin{bmatrix}\cos\phi&\sin\phi\\-\sin\phi&\cos\phi\end{bmatrix}.
+\end{equation}
+The logarithm of $R$ is
+\begin{equation}
+  \log R = P\left(\left(\bigoplus_{l=1}^{N(N-1)/2}\log B(\phi_l)\right)
+  \oplus 0_{N-1}\right)P^T,
+\end{equation}
+where $0_{N-1}$ is a $(N-1)\times(N-1)$ matrix of zeros,
+$\log B(\phi_l) = (\phi_l+2k_l\pi)iY$ with $Y$ being the second Pauli matrix.
+
+If $R = \text{Ad}_U$ and $U = Ve^{iH}V^\dagger$, then
+\begin{equation}
+  -i\log R = (\text{Ad}_V)(\text{ad}_H)(\text{Ad}_V)^T.
+\end{equation}
+From Eq.~(\ref{eq:ad_h}) we conclude that each $\phi_l+2k_l\pi$ has to be
+the difference of $H_i-H_j$ for some $(i,j)$.  Furthermore,
+$-i\log R\in \mathfrak{su}(N)$.  Thus, if there exists
+$\{k1,\ldots,k_{N(N-1)/2}\}$ such that $-2\pi <\phi_l+2k_l\pi\le2\pi$ and
+\begin{equation}
+  P\left(\left(\bigoplus_{l=1}^{N(N-1)/2}((\phi_l+2k_l\pi)Y)\right)
+  \oplus0_{N-1}\right)P^T = \sum_{a=1}^{N^2-1}\theta_aF_a
+\end{equation}
+for some $\theta\in\mathbb R^{N^2-1}$ and $F_a = \text{ad}_{T_a}$, then
+$R = \text{Ad}_U$, with $U = \exp(i\sum_a\theta_aT_a)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % bibtex
